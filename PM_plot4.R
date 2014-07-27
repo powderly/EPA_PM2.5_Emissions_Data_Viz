@@ -75,11 +75,7 @@ EPA_plot4 <- function(){
         ## Emissions is transformed to a log base 10 function
         ## and 0 are subbed for -inf values in order to compress the viewport
         
-        ggplot(aes(y = Emissions, x = year, color=type), data = data.merged.subset) 
-                + geom_jitter() + 
-                ggtitle("EPA PM2.5 Emission related to Coal Combustion for 1999-2005") 
-                + coord_cartesian(ylim = c(0, 500)) 
-                + geom_smooth(method="lm")
+        ggplot(aes(y = Emissions, x = year, color=type), data = data.merged.subset) + geom_jitter() + ggtitle("EPA PM2.5 Emission related to Coal Combustion for 1999-2005") + coord_cartesian(ylim = c(0, 500)) + geom_smooth(method="lm")
         
         ## --------------COPY SCREEN DEVICE to PNG-------------------##
         print("Copying Plot to .png")
