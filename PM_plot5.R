@@ -82,7 +82,7 @@ EPA_plot5 <- function(){
                           x=data.summed.line$year, 
                           ylab="PM2.5 Emissions (in tons)", 
                           xlab="Year", xlim=c(1998, 2009), 
-                          main="PM2.5 Emission Totals for On-Road Sources in Baltimore City, 1999-2005", 
+                          main="PM2.5 Emission Totals for On-Road Sources in Baltimore City, 1999-2008", 
                           ylim=1.1*c(0, max(data.summed.line$onroad)), 
                           type="o", 
                           col="#DF9EDF",
