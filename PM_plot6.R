@@ -73,8 +73,10 @@ EPA_plot6 <- function(){
         
         modData <-Data
         modData$type<-as.factor(modData$type)
-        modData<-modData[which(modData$fips==24510 | modData$fips=="06037"),] ## subset using baltimore city and LA county codes
-        
+        modData<-modData[which(modData$type == "ON-ROAD" & (modData$fips==24510 | modData$fips=="06037")),] ## subset using baltimore city and LA county codes
+        modData$fips<-as.factor(modData$fips)
+        data.merged<- merge(Code, modData, by.y="SCC")
+        data.merged$SCC.Level.Three <- as.factor(data.merged$SCC.Level.Three)
         
         print("Data Processed.")
         print("Plotting Data...")
@@ -106,4 +108,16 @@ EPA_plot6 <- function(){
         print("closing device...")
         dev.off() ## Don't forget to close the PNG device!
         print("Script Completed")
+        
+        p<-ggplot(aes(y = as.numeric(gsub("-Inf", 0, log(Emissions, 10))), x = year, color=vehicles), data = data.merged) + geom_jitter() + ggtitle("Comparing LA and Baltimore using EPA PM2.5 Emissions from 1999-2005") + facet_grid(. ~ fips)
+        p + geom_smooth(method = 'lm', aes(colour = NA), colour = 'black') + ylab("PM2.5 Emission Log10")
+        
+        print("Copying Plot to .png")
+        dev.copy(png, file = "EPA_plot6_B.png", width=800, height=1000) ## copy from the screen device to a PNG file
+        print("PNG created.")
+        print("closing device...")
+        dev.off() ## Don't forget to close the PNG device!
+        print("Script Completed")
+        
+        
 }
